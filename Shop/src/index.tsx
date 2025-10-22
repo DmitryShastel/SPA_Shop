@@ -1,8 +1,12 @@
 import {createRoot} from "react-dom/client";
-import {App} from "./components/App";
+import {App} from "./common/components/app/App";
 import "./global.scss"
 
 const root = document.getElementById('root')
+
+if(!root){
+    throw new Error("Root element not found")
+}
 
 const container = createRoot(root)
 
