@@ -1,11 +1,11 @@
 import './app.scss'
-import NotificationsSignInPageError from "../sigIn/SignIn";
+import BasicExampleDataGrid from "../listOfProduct/listOfProduct";
 
 export const App = () => {
 
     return (
         <div>
-           <NotificationsSignInPageError/>
+           <BasicExampleDataGrid/>
         </div>
     );
 };
