@@ -1,11 +1,11 @@
 import './app.scss'
-import BasicExampleDataGrid from "../listOfProduct/listOfProduct";
+import {ProductCard} from "../card/Card";
 
 export const App = () => {
 
     return (
         <div>
-           <BasicExampleDataGrid/>
+           <ProductCard/>
         </div>
     );
 };
