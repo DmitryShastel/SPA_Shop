@@ -4,30 +4,44 @@ import {AppProvider} from '@toolpad/core/AppProvider';
 import {type AuthProvider, type AuthResponse, SignInPage,} from '@toolpad/core/SignInPage';
 import {useTheme} from '@mui/material/styles';
 import {validateUserName, validateUserPassword} from "../../utils/SignInValidation";
+import {useLogInMutation} from "../../../service/signIn/signIn.service";
+import {useNavigate} from "react-router";
 
+
+const SignData = {
+    username: 'emilys',
+    password: 'emilyspass'
+}
 const providers = [{id: 'credentials', name: 'username and password'}];
-
-
-export const signIn: (
-    provider: AuthProvider,
-    formData?: FormData,
-) => Promise<AuthResponse> | void = async (provider, formData) => {
-    const promise = new Promise<AuthResponse>((resolve) => {
-        const username = formData?.get('username')
-        const password = formData?.get('password')
-
-        resolve({
-            type: 'CredentialsSignin',
-            error: 'Invalid credentials.',
-        });
-    });
-    return promise;
-};
 
 export default function NotificationsSignInPageError() {
     const theme = useTheme();
+    const navigate = useNavigate()
     const [userNameError, setUsernameError] = useState('')
     const [userPasswordError, setUserPasswordError] = useState('')
+    const [userName, setUserName] = useState(SignData.username)
+    const [userPassword, setUserPassword] = useState(SignData.password)
+
+    const [logIn] = useLogInMutation()
+
+    const signIn = async (
+        provider: AuthProvider,
+        formData?: FormData,
+    ): Promise<AuthResponse> => {
+        try {
+            await logIn(SignData).unwrap();
+
+            navigate('/card', {replace: true})
+            return { type: 'success' } as any;
+
+        } catch (err) {
+            const response: AuthResponse = {
+                type: 'CredentialsSignin',
+                error: 'Invalid username or password',
+            };
+            return response;
+        }
+    };
 
     return (
         <AppProvider theme={theme}>
@@ -40,9 +54,11 @@ export default function NotificationsSignInPageError() {
                         label: "UserName",
                         placeholder: "Enter your user name",
                         name: "username",
+                        value: userName,
                         error: !!userNameError,
                         helperText: userNameError,
                         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                            setUserName(e.target.value)
                             setUsernameError(validateUserName(e.target.value))
                         },
                         onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
@@ -54,9 +70,11 @@ export default function NotificationsSignInPageError() {
                         label: "Password",
                         placeholder: "Enter your password",
                         name: "password",
+                        value: userPassword,
                         error: !!userPasswordError,
                         helperText: userPasswordError,
                         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+                            setUserPassword(e.target.value)
                             setUserPasswordError(validateUserPassword(e.target.value))
                         },
                         onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
@@ -69,5 +87,6 @@ export default function NotificationsSignInPageError() {
         </AppProvider>
     );
 }
+
 
 
