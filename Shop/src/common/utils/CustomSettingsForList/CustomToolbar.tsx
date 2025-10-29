@@ -1,14 +1,17 @@
 import {GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
 import {useState} from "react";
-import {Badge, Box, IconButton, Typography} from "@mui/material";
+import {Badge, Box, IconButton} from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {useNavigate} from "react-router";
 
 export const CustomToolbar = () => {
     const [cartItemsCount, setCartItemsCount] = useState(3);
 
+    const navigate = useNavigate()
+
     const handleCartClick = () => {
-        console.log('Корзина открыта');
+        navigate('/card', { replace: true })
     };
 
     return (
@@ -42,4 +45,3 @@ export const CustomToolbar = () => {
         </Box>
     );
 };
-

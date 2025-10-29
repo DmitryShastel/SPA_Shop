@@ -5,7 +5,7 @@ import {CustomToolbar} from "../../utils/CustomSettingsForList/CustomToolbar";
 import {getColumnsWithCart} from "../../utils/CustomSettingsForList/columnsWithCart";
 import {useTotalProductsQuery} from "../../../service/listOfProduct/listOfProduct.service";
 import {columns, VISIBLE_FIELDS} from "../../utils/CustomSettingsForList/customTitlesOfList";
-
+import {useProductFilters} from "../../../features/ProductFilter/ProductFilter";
 
 
 export default function BasicExampleDataGrid() {
@@ -20,6 +20,16 @@ export default function BasicExampleDataGrid() {
         pageSize: 15
     })
 
+    const { filters, updateFilters } = useProductFilters();
+
+    const handleSortModelChange = (newSortModel: any) => {
+        updateFilters({ sortModel: newSortModel });
+    };
+
+    const handleFilterModelChange = (newFilterModel: any) => {
+        updateFilters({ filterModel: newFilterModel });
+    };
+
     const allColumnsWithCart = getColumnsWithCart(columns as any)
 
     const initialState: any = {
@@ -28,6 +38,12 @@ export default function BasicExampleDataGrid() {
                 columns.map(col => [col.field, VISIBLE_FIELDS.includes(col.field)])
             ) as Record<string, boolean>,
         },
+        sorting: {
+            sortModel: filters.sortModel
+        },
+        filter: {
+            filterModel: filters.filterModel
+        }
     };
 
     const rows = data?.products || [];
@@ -41,6 +57,10 @@ export default function BasicExampleDataGrid() {
                 showToolbar
                 paginationModel={paginationModel}
                 onPaginationModelChange={setPaginationModel}
+                onSortModelChange={handleSortModelChange}
+                onFilterModelChange={handleFilterModelChange}
+                sortModel={filters.sortModel}
+                filterModel={filters.filterModel}
                 pageSizeOptions={[15, 20, 25, 50, 100]}
                 slots={{toolbar: CustomToolbar}}
                 disableDensitySelector={true}
