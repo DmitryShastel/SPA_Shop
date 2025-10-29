@@ -1,6 +1,5 @@
 import {baseApi} from "../baseApi";
 
-
 type Credentials = {
     username: string
     password: string
@@ -14,8 +13,9 @@ export const authApi = baseApi.injectEndpoints({
                 method: 'POST',
                 url: '/auth/login'
             })
-        })
+        }),
     })
 })
+
 
 export const {useLogInMutation} = authApi

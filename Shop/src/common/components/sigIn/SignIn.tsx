@@ -29,9 +29,10 @@ export default function NotificationsSignInPageError() {
         formData?: FormData,
     ): Promise<AuthResponse> => {
         try {
-            await logIn(SignData).unwrap();
+            const result = await logIn(SignData).unwrap();
+            localStorage.setItem('authToken', result.accessToken);
 
-            navigate('/card', {replace: true})
+            navigate('/listOfProduct', {replace: true})
             return { type: 'success' } as any;
 
         } catch (err) {
