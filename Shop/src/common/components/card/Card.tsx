@@ -10,21 +10,23 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {useGetCartQuery} from "../../../service/cart/cart.service";
+import {useNavigate} from "react-router";
+
 
 export const ProductCard = () => {
-    const product = {
-        name: 'Title of product',
-        image: 'https://cdn-imgix.headout.com/tour/7064/TOUR-IMAGE/b2c74200-8da7-439a-95b6-9cad1aa18742-4445-dubai-img-worlds-of-adventure-tickets-02.jpeg?auto=format&w=600&q=90&fit=clip', // Замените на реальный URL изображения
-        description: 'Test description Test description Test description',
-        quantity: 15,
-        price: '1000000$'
+    const navigate = useNavigate()
+
+    const handleCartBack = () => {
+        navigate('/listOfProduct', { replace: true })
     };
+
+    const {data} = useGetCartQuery(1)
 
     return (
         <Container maxWidth="sm" sx={{ py: 10,  px: 0, margin: 0 }}>
             <Card
                 sx={{
-                    // maxWidth: 800,
                     width: '95vw',
                     height: '70vh',
                     margin: '0 auto',
@@ -43,16 +45,21 @@ export const ProductCard = () => {
                     }}
                 >
                     <Typography variant="h5" component="h1" fontWeight="bold">
-                        {product.name}
+                        {'Title of product'}
                     </Typography>
-                    <Button startIcon={<ArrowBackIcon />} variant="contained" color="secondary">Back</Button>
+                    <Button
+                        startIcon={<ArrowBackIcon />}
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleCartBack}
+                    >Back</Button>
                 </Box>
 
                 <CardMedia
                     component="img"
                     height="200"
-                    image={product.image}
-                    alt={product.name}
+                    image={data?.products[0].thumbnail}
+                    alt={data?.products[0].title}
                     sx={{ objectFit: 'cover' }}
                 />
 
@@ -62,7 +69,7 @@ export const ProductCard = () => {
                         color="text.secondary"
                         sx={{ mb: 2, lineHeight: 1.6 }}
                     >
-                        {product.description}
+                        {data?.products[0].title}
                     </Typography>
 
                     <Box
@@ -78,14 +85,13 @@ export const ProductCard = () => {
                                 In the stock:
                             </Typography>
                             <Chip
-                                label={product.quantity + ' item(s).'}
+                                label={data?.products.length + ' item(s).'}
                                 size="small"
-                                color={product.quantity > 5 ? "success" : "warning"}
                                 variant="outlined"
                             />
                         </Box>
                         <Typography variant="h6" color="primary" fontWeight="bold">
-                            {product.price}
+                            {data?.total}
                         </Typography>
                     </Box>
                 </CardContent>

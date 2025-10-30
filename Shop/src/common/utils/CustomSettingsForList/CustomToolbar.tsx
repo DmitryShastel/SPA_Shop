@@ -11,7 +11,7 @@ export const CustomToolbar = () => {
     const navigate = useNavigate()
 
     const handleCartClick = () => {
-        navigate('/card', { replace: true })
+        navigate('/cart', { replace: true })
     };
 
     return (
