@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {useState} from 'react';
-import {DataGrid} from '@mui/x-data-grid';
+import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {CustomToolbar} from "../../utils/CustomSettingsForList/CustomToolbar";
 import {getColumnsWithCart} from "../../utils/CustomSettingsForList/columnsWithCart";
 import {useTotalProductsQuery} from "../../../service/listOfProduct/listOfProduct.service";
@@ -34,9 +34,12 @@ export default function BasicExampleDataGrid() {
 
     const initialState: any = {
         columns: {
-            columnVisibilityModel: Object.fromEntries(
-                columns.map(col => [col.field, VISIBLE_FIELDS.includes(col.field)])
-            ) as Record<string, boolean>,
+            columnVisibilityModel: {
+                ...Object.fromEntries(
+                    columns.map(col => [col.field, VISIBLE_FIELDS.includes(col.field)])
+                ),
+                addToCart: true,
+            } as Record<string, boolean>,
         },
         sorting: {
             sortModel: filters.sortModel
@@ -65,6 +68,14 @@ export default function BasicExampleDataGrid() {
                 slots={{toolbar: CustomToolbar}}
                 disableDensitySelector={true}
                 initialState={initialState}
+                slotProps={{
+                    columnsManagement: {
+                        getTogglableColumns: (columns: GridColDef[]) =>
+                            columns
+                                .filter(column => column.field !== 'addToCart')
+                                .map(column => column.field)
+                    },
+                }}
             />
         </div>
     );

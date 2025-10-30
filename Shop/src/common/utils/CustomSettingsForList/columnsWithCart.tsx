@@ -27,6 +27,7 @@ export const getColumnsWithCart = (baseColumns: GridColDef[]): GridColDef[] => {
             ),
             sortable: false,
             filterable: false,
+            hideable: false,
         },
     ];
 };

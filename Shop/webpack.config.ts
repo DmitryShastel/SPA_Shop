@@ -54,7 +54,6 @@ export default (env: EnvVariables) => {
             open: true,
             historyApiFallback: {
                 index: '/index.html',
-                // Упрощенный вариант - все пути ведут на index.html
                 rewrites: [
                     { from: /./, to: '/index.html' }
                 ]
