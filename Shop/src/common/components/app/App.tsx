@@ -5,6 +5,7 @@ import BasicExampleDataGrid from "../listOfProduct/listOfProduct";
 import {ProductCard} from "../card/Card";
 import {CheckUpToken} from "../../../features/protectedRoute/ProtectedRoute";
 import {SignUp} from "../signUp/SignUp";
+import {ProductModal} from "../productModal/ProductModal";
 
 export const App = () => {
 
@@ -16,7 +17,7 @@ export const App = () => {
                         <Route path="/" element={<Navigate to="/auth/login" replace/>}/>
                         <Route path="/auth/login" element={<NotificationsSignInPageError/>}/>
                         {/*<Route path="/listOfProduct" element={<BasicExampleDataGrid/>}/>*/}
-                        <Route path="/listOfProduct" element={<SignUp/>}/>
+                        <Route path="/listOfProduct" element={<ProductCard/>}/>
                         <Route path="/cart" element={<ProductCard/>}/>
                     </Routes>
                 </div>

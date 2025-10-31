@@ -14,11 +14,11 @@ import {useGetCartQuery} from "../../../service/cart/cart.service";
 import {useNavigate} from "react-router";
 
 
-export const ProductCard = () => {
+export const ProductModal = () => {
     const navigate = useNavigate()
 
     const handleCartBack = () => {
-        navigate('/listOfProduct', {replace: true})
+        console.log('test')
     };
 
     const {data} = useGetCartQuery(1)
@@ -28,14 +28,14 @@ export const ProductCard = () => {
             py: 10,
             margin: '0 auto',
             display: 'flex',
-            // alignItems: 'center',
-            // justifyContent: 'space-between',
+            alignItems: 'center',
+            justifyContent: 'center',
             minHeight: '100vh'
         }}>
             <Card
                 sx={{
-                    width: '95vw',
-                    height: '70vh',
+                    width: '65vw',
+                    height: '60vh',
                     margin: '0 auto',
                     boxShadow: 3,
                     borderRadius: 2,
@@ -47,23 +47,23 @@ export const ProductCard = () => {
                         color: 'white',
                         p: 2,
                         display: 'flex',
+                        justifyContent: 'space-between',
                         textAlign: 'center'
                     }}
                 >
-                    <Button
-                        startIcon={<ArrowBackIcon/>}
-                        variant="contained"
-                        color="secondary"
-                        onClick={handleCartBack}
-                    >Back</Button>
                     <Typography
                         variant="h5"
                         component="h1"
                         fontWeight="bold"
                         sx={{ marginLeft: 3 }}
                     >
-                        {'Title of product'}
+                        {'Description of product'}
                     </Typography>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleCartBack}
+                    >X</Button>
                 </Box>
 
                 <CardMedia
@@ -105,19 +105,6 @@ export const ProductCard = () => {
                             {data?.total + ' $'}
                         </Typography>
                     </Box>
-
-                    <Button
-                        sx={{
-                            marginLeft: 'auto',
-                            marginTop: 10,
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}
-                        variant="outlined"
-                        color="info"
-                        onClick={handleCartBack}
-                    >Place order</Button>
-
                 </CardContent>
             </Card>
         </Container>
