@@ -3,7 +3,7 @@ import {useState} from 'react';
 import {AppProvider} from '@toolpad/core/AppProvider';
 import {type AuthProvider, type AuthResponse, SignInPage,} from '@toolpad/core/SignInPage';
 import {useTheme} from '@mui/material/styles';
-import {validateUserName, validateUserPassword} from "../../utils/SignInValidation";
+import {validateUserName, validateUserPassword} from "../../utils/ValidationForm/SignInValidation";
 import {useLogInMutation} from "../../../service/signIn/signIn.service";
 import {useNavigate} from "react-router";
 

@@ -15,6 +15,10 @@ export default function BasicExampleDataGrid() {
         rowLength: 100,
     })
 
+    let images = data?.products.map((el: any) => el.images[0])
+
+    console.log(data)
+
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
         pageSize: 15

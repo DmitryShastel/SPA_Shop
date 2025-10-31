@@ -1,4 +1,12 @@
+import {ImageCell} from "./ImageCell";
+
 export const columns = [
+    {
+        field: 'image',
+        headerName: 'Product Image',
+        width: 150,
+        renderCell: ImageCell
+    },
     {field: 'title', headerName: 'Product Name', width: 200, flex: 1},
     {field: 'category', headerName: 'Category', width: 130},
     {field: 'price', headerName: 'Price', width: 130, type: 'number'},
@@ -8,4 +16,4 @@ export const columns = [
     {field: 'description', headerName: 'Description', width: 200},
 ];
 
-export const VISIBLE_FIELDS = ['title', 'category', 'price', 'rating', 'stock'];
+export const VISIBLE_FIELDS = ['image', 'title', 'category', 'price', 'rating', 'stock'];

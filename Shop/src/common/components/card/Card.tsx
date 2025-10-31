@@ -18,13 +18,13 @@ export const ProductCard = () => {
     const navigate = useNavigate()
 
     const handleCartBack = () => {
-        navigate('/listOfProduct', { replace: true })
+        navigate('/listOfProduct', {replace: true})
     };
 
     const {data} = useGetCartQuery(1)
 
     return (
-        <Container maxWidth="sm" sx={{ py: 10,  px: 0, margin: 0 }}>
+        <Container maxWidth="sm" sx={{py: 10, px: 0, margin: 0}}>
             <Card
                 sx={{
                     width: '95vw',
@@ -40,19 +40,23 @@ export const ProductCard = () => {
                         color: 'white',
                         p: 2,
                         display: 'flex',
-                        justifyContent: 'space-between',
                         textAlign: 'center'
                     }}
                 >
-                    <Typography variant="h5" component="h1" fontWeight="bold">
-                        {'Title of product'}
-                    </Typography>
                     <Button
-                        startIcon={<ArrowBackIcon />}
+                        startIcon={<ArrowBackIcon/>}
                         variant="contained"
                         color="secondary"
                         onClick={handleCartBack}
                     >Back</Button>
+                    <Typography
+                        variant="h5"
+                        component="h1"
+                        fontWeight="bold"
+                        sx={{ marginLeft: 3 }}
+                    >
+                        {'Title of product'}
+                    </Typography>
                 </Box>
 
                 <CardMedia
@@ -60,14 +64,14 @@ export const ProductCard = () => {
                     height="200"
                     image={data?.products[0].thumbnail}
                     alt={data?.products[0].title}
-                    sx={{ objectFit: 'cover' }}
+                    sx={{objectFit: 'cover'}}
                 />
 
-                <CardContent sx={{ p: 3 }}>
+                <CardContent sx={{p: 3}}>
                     <Typography
                         variant="body1"
                         color="text.secondary"
-                        sx={{ mb: 2, lineHeight: 1.6 }}
+                        sx={{mb: 2, lineHeight: 1.6}}
                     >
                         {data?.products[0].title}
                     </Typography>
@@ -80,7 +84,7 @@ export const ProductCard = () => {
                             mt: 2
                         }}
                     >
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
                             <Typography variant="body2" color="text.secondary">
                                 In the stock:
                             </Typography>
@@ -91,9 +95,22 @@ export const ProductCard = () => {
                             />
                         </Box>
                         <Typography variant="h6" color="primary" fontWeight="bold">
-                            {data?.total}
+                            {data?.total + ' $'}
                         </Typography>
                     </Box>
+
+                    <Button
+                        sx={{
+                            marginLeft: 'auto',
+                            marginTop: 10,
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}
+                        variant="outlined"
+                        color="info"
+                        onClick={handleCartBack}
+                    >Place order</Button>
+
                 </CardContent>
             </Card>
         </Container>
