@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Card,
     CardContent,
@@ -17,19 +17,33 @@ import {useNavigate} from "react-router";
 export const ProductCard = () => {
     const navigate = useNavigate()
 
+    const {data} = useGetCartQuery(1)
+    const [productCount, setProductCount] = useState(data?.products.length)
+
     const handleCartBack = () => {
         navigate('/listOfProduct', {replace: true})
     };
 
-    const {data} = useGetCartQuery(1)
+    const handelIncreaseProduct = () => {
+        setProductCount(productCount + 1)
+    }
+    const handelDecreaseProduct = () => {
+        if (productCount > 0) {
+            setProductCount(productCount - 1)
+        }
+    }
+
+    useEffect(() => {
+        if (data?.products.length) {
+            setProductCount(data?.products.length)
+        }
+    }, [data])
 
     return (
         <Container maxWidth="sm" sx={{
             py: 10,
             margin: '0 auto',
             display: 'flex',
-            // alignItems: 'center',
-            // justifyContent: 'space-between',
             minHeight: '100vh'
         }}>
             <Card
@@ -60,7 +74,7 @@ export const ProductCard = () => {
                         variant="h5"
                         component="h1"
                         fontWeight="bold"
-                        sx={{ marginLeft: 3 }}
+                        sx={{marginLeft: 3}}
                     >
                         {'Title of product'}
                     </Typography>
@@ -95,17 +109,38 @@ export const ProductCard = () => {
                             <Typography variant="body2" color="text.secondary">
                                 In the stock:
                             </Typography>
+                            <Button
+                                variant="contained"
+                                color="info"
+                                onClick={handelDecreaseProduct}
+                                sx={{
+                                    minWidth: 20,
+                                    width: 20,
+                                    height: 20,
+                                    padding: 0,
+                                }}
+                            >-</Button>
                             <Chip
-                                label={data?.products.length + ' item(s).'}
+                                label={productCount + ' item(s).'}
                                 size="small"
                                 variant="outlined"
                             />
+                            <Button
+                                variant="contained"
+                                color="info"
+                                onClick={handelIncreaseProduct}
+                                sx={{
+                                    minWidth: 20,
+                                    width: 20,
+                                    height: 20,
+                                    padding: 0,
+                                }}
+                            >+</Button>
                         </Box>
                         <Typography variant="h6" color="primary" fontWeight="bold">
                             {data?.total + ' $'}
                         </Typography>
                     </Box>
-
                     <Button
                         sx={{
                             marginLeft: 'auto',
@@ -117,7 +152,6 @@ export const ProductCard = () => {
                         color="info"
                         onClick={handleCartBack}
                     >Place order</Button>
-
                 </CardContent>
             </Card>
         </Container>
