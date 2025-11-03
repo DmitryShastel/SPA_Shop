@@ -1,17 +1,19 @@
 import {GridToolbar} from "@mui/x-data-grid";
 import * as React from "react";
-import {useState} from "react";
 import {Badge, Box, IconButton} from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {useNavigate} from "react-router";
 
-export const CustomToolbar = () => {
-    const [cartItemsCount, setCartItemsCount] = useState(3);
+interface CustomToolbarProps {
+    cartItemsCount: number;
+}
+
+export const CustomToolbar = ({cartItemsCount}: CustomToolbarProps) => {
 
     const navigate = useNavigate()
 
     const handleCartClick = () => {
-        navigate('/cart', { replace: true })
+        navigate('/cart', {replace: true})
     };
 
     return (
@@ -25,7 +27,7 @@ export const CustomToolbar = () => {
             width: '100%',
             boxSizing: 'border-box'
         }}>
-            <Box  sx={{flex: 1}}>
+            <Box sx={{flex: 1}}>
                 <GridToolbar
                     csvOptions={{disableToolbarButton: true}}
                     printOptions={{disableToolbarButton: true}}

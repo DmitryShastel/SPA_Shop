@@ -114,5 +114,4 @@ export const ProductModal = ({ open, onClose, product }: ProductModalProps) => {
             </Fade>
         </Modal>
     );
-
 }

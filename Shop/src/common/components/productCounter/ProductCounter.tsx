@@ -1,10 +1,13 @@
 import {Box} from "@mui/material";
 import Button from "@mui/material/Button";
-import {useState} from "react";
 
-export const ProductCounter = () => {
+interface ProductCounterProps {
+    count: number;
+    increaseCount: () => void;
+    decreaseCount: () => void;
+}
 
-    const [countProduct, setProductCount] = useState(1)
+export const ProductCounter = ({count, increaseCount , decreaseCount} : ProductCounterProps) => {
 
     return (
         <div>
@@ -19,7 +22,7 @@ export const ProductCounter = () => {
                 <Button
                     variant="contained"
                     color="info"
-                    onClick={() => {}}
+                    onClick={decreaseCount}
                     sx={{
                         minWidth: 20,
                         width: 20,
@@ -27,11 +30,11 @@ export const ProductCounter = () => {
                         padding: 0,
                     }}
                 >-</Button>
-                {countProduct}
+                {count}
                 <Button
                     variant="contained"
                     color="info"
-                    onClick={() => {}}
+                    onClick={increaseCount}
                     sx={{
                         minWidth: 20,
                         width: 20,

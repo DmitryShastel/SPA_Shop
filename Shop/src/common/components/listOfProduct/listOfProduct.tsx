@@ -18,6 +18,7 @@ export default function BasicExampleDataGrid() {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [product, setProduct] = useState<any>(null)
+    const [cartItemsCount, setCartItemsCount] = useState(0)
 
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
@@ -44,7 +45,13 @@ export default function BasicExampleDataGrid() {
         setProduct(null)
     };
 
-    const allColumnsWithCart = getColumnsWithCart(columns as any, handleImageClick as any)
+    const handleAddToCart = (count: number) => {
+        console.log('Adding to cart:', count);
+        setCartItemsCount(prevCount => prevCount + count);
+    };
+
+
+    const allColumnsWithCart = getColumnsWithCart(columns as any, handleImageClick as any, handleAddToCart)
 
     const initialState: any = {
         columns: {
@@ -79,7 +86,7 @@ export default function BasicExampleDataGrid() {
                 sortModel={filters.sortModel}
                 filterModel={filters.filterModel}
                 pageSizeOptions={[15, 20, 25, 50, 100]}
-                slots={{toolbar: CustomToolbar}}
+                slots={{toolbar: () => <CustomToolbar cartItemsCount={cartItemsCount} />}}
                 disableDensitySelector={true}
                 initialState={initialState}
                 slotProps={{
