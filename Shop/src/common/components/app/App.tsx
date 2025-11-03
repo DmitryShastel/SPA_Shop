@@ -5,6 +5,7 @@ import BasicExampleDataGrid from "../listOfProduct/listOfProduct";
 import {CheckUpToken} from "../../../features/protectedRoute/ProtectedRoute";
 import {ProductCard} from "../card/Card";
 import {ProductModal} from "../productModal/ProductModal";
+import {Header} from "../header/Header";
 
 export const App = () => {
 
@@ -12,6 +13,7 @@ export const App = () => {
         <BrowserRouter>
             <CheckUpToken>
                 <div>
+                    <Header/>
                     <Routes>
                         <Route path="/" element={<Navigate to="/auth/login" replace/>}/>
                         <Route path="/auth/login" element={<NotificationsSignInPageError/>}/>
