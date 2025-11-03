@@ -4,7 +4,7 @@ import {useState} from "react";
 
 export const ProductCounter = () => {
 
-    const [countProduct, setProductCount] = useState(0)
+    const [countProduct, setProductCount] = useState(1)
 
     return (
         <div>

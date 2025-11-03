@@ -6,6 +6,7 @@ import {getColumnsWithCart} from "../../utils/CustomSettingsForList/columnsWithC
 import {useTotalProductsQuery} from "../../../service/listOfProduct/listOfProduct.service";
 import {columns, VISIBLE_FIELDS} from "../../utils/CustomSettingsForList/customTitlesOfList";
 import {useProductFilters} from "../../../features/ProductFilter/ProductFilter";
+import {ProductModal} from "../productModal/ProductModal";
 
 
 export default function BasicExampleDataGrid() {
@@ -15,9 +16,8 @@ export default function BasicExampleDataGrid() {
         rowLength: 100,
     })
 
-    let images = data?.products.map((el: any) => el.images[0])
-
-    console.log(data)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [product, setProduct] = useState<any>(null)
 
     const [paginationModel, setPaginationModel] = useState({
         page: 0,
@@ -34,7 +34,17 @@ export default function BasicExampleDataGrid() {
         updateFilters({ filterModel: newFilterModel });
     };
 
-    const allColumnsWithCart = getColumnsWithCart(columns as any)
+    const handleImageClick = (product: any) => {
+        setIsModalOpen(true);
+        setProduct(product)
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setProduct(null)
+    };
+
+    const allColumnsWithCart = getColumnsWithCart(columns as any, handleImageClick as any)
 
     const initialState: any = {
         columns: {
@@ -59,7 +69,7 @@ export default function BasicExampleDataGrid() {
         <div style={{height: '100%', width: '100%'}}>
             <DataGrid
                 rows={rows as any}
-                columns={allColumnsWithCart}
+                columns={allColumnsWithCart as any}
                 loading={loading}
                 showToolbar
                 paginationModel={paginationModel}
@@ -81,6 +91,13 @@ export default function BasicExampleDataGrid() {
                     },
                 }}
             />
+            {isModalOpen && (
+                <ProductModal
+                    product={product}
+                    onClose={handleCloseModal}
+                    open={isModalOpen}
+                />
+            )}
         </div>
     );
 }
