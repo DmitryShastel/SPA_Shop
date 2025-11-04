@@ -12,9 +12,17 @@ export const authApi = baseApi.injectEndpoints({
                 body: credentials,
                 method: 'POST',
                 url: '/auth/login'
-            })
+            }),
+            invalidatesTags: ['Auth']
+        }),
+        authMe: build.query({
+            query: () => ({
+                method: 'GET',
+                url: '/auth/me',
+            }),
+            providesTags: ['Auth']
         }),
     })
 })
 
-export const {useLogInMutation} = authApi
+export const {useLogInMutation, useAuthMeQuery} = authApi

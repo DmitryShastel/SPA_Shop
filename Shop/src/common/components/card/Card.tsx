@@ -33,6 +33,15 @@ export const ProductCard = () => {
         }
     }
 
+    const handlerPlaceOrder = () => {
+        const token = localStorage.getItem('authToken')
+        if (!token) {
+            navigate('/register', {replace: true})
+        } else {
+            alert('You have placed order successfully')
+        }
+    }
+
     useEffect(() => {
         if (data?.products.length) {
             setProductCount(data?.products.length)
@@ -150,7 +159,7 @@ export const ProductCard = () => {
                         }}
                         variant="outlined"
                         color="info"
-                        onClick={handleCartBack}
+                        onClick={handlerPlaceOrder}
                     >Place order</Button>
                 </CardContent>
             </Card>

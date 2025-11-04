@@ -7,7 +7,7 @@ export const columns = [
         width: 150,
         renderCell: ImageCell
     },
-    {field: 'title', headerName: 'Product Name', width: 200, flex: 1},
+    {field: 'title', headerName: 'Product Name', width: 100, flex: 1},
     {field: 'category', headerName: 'Category', width: 130},
     {field: 'price', headerName: 'Price', width: 130, type: 'number'},
     {field: 'rating', headerName: 'Rating', width: 130, type: 'number'},

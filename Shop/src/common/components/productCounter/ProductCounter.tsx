@@ -14,7 +14,7 @@ export const ProductCounter = ({count, increaseCount , decreaseCount} : ProductC
             <Box
                 sx={{
                     display: 'flex',
-                    width: 100,
+                    width: 80,
                     alignItems: 'center',
                     gap: 1
                 }}

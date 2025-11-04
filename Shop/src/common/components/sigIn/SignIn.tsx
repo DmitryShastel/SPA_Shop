@@ -4,8 +4,9 @@ import {AppProvider} from '@toolpad/core/AppProvider';
 import {type AuthProvider, type AuthResponse, SignInPage,} from '@toolpad/core/SignInPage';
 import {useTheme} from '@mui/material/styles';
 import {validateUserName, validateUserPassword} from "../../utils/ValidationForm/SignInValidation";
-import {useLogInMutation} from "../../../service/signIn/signIn.service";
+import {authApi, useLogInMutation} from "../../../service/signIn/signIn.service";
 import {useNavigate} from "react-router";
+import {useDispatch} from "react-redux";
 
 
 const SignData = {
@@ -17,6 +18,7 @@ const providers = [{id: 'credentials', name: 'username and password'}];
 export default function NotificationsSignInPageError() {
     const theme = useTheme();
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [userNameError, setUsernameError] = useState('')
     const [userPasswordError, setUserPasswordError] = useState('')
     const [userName, setUserName] = useState(SignData.username)
@@ -31,6 +33,8 @@ export default function NotificationsSignInPageError() {
         try {
             const result = await logIn(SignData).unwrap();
             localStorage.setItem('authToken', result.accessToken);
+
+            dispatch(authApi.util.invalidateTags(['Auth']))
 
             navigate('/listOfProduct', {replace: true})
             return { type: 'success' } as any;

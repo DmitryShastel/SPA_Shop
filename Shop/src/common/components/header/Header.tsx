@@ -1,8 +1,26 @@
 import React from 'react';
 import {Box} from "@mui/material";
 import Button from "@mui/material/Button";
+import {useAuthMeQuery} from "../../../service/signIn/signIn.service";
+import {useNavigate} from "react-router";
 
 export const Header = () => {
+    const navigate = useNavigate()
+
+    const {data, isLoading, isError} = useAuthMeQuery(undefined)
+
+    if (!isLoading && data && !isError) {
+        return null;
+    }
+
+    const handleSignIn = () => {
+        navigate('/auth/login', {replace: true})
+    }
+
+    const handleSignUp = () => {
+        navigate('/register', {replace: true})
+    }
+
     return (
         <Box
             sx={{
@@ -23,8 +41,7 @@ export const Header = () => {
             <Button
                 variant="contained"
                 color="inherit"
-                onClick={() => {
-                }}
+                onClick={handleSignIn}
                 sx={{
                     width: 100,
                     height: 30,
@@ -34,8 +51,7 @@ export const Header = () => {
             <Button
                 variant="contained"
                 color="inherit"
-                onClick={() => {
-                }}
+                onClick={handleSignUp}
                 sx={{
                     width: 100,
                     height: 30,
